@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] Camera FPCamera;
     [Tooltip("Represents rounds per minute (e.g. 60 would mean you can shoot once every second)")] 
     [SerializeField] float fireRate = 20f;
+    [SerializeField] ParticleSystem muzzleFlash;
 
     bool canShoot = true;
 
@@ -44,7 +45,7 @@ public class Weapon : MonoBehaviour
         canShoot = false;
         Debug.Log("Shot!");
         // play audio
-        // play muzzle flash
+        muzzleFlash.Play();
         // process parabolic raycast with gravity and wind drop
         yield return new WaitForSeconds(60 / fireRate);
         canShoot = true;
