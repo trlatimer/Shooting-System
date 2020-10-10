@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Tooltip("Determines how many iterations occur per frame, higher value improves accuracy of trajectory")]
     [SerializeField] int stepsPerFrame = 6;
+    [Tooltip("How fast the projectile will travel. Higher value increases distance it will travel before dropping noticably")]
     [SerializeField] float bulletSpeed = 420f;
+    [Tooltip("Distance before a system destroys the object if it hasn't collided with anything")]
     [SerializeField] float maxShotDistance = 100f;
+    [Tooltip("Vector to determine wind direction and amount of effect on projectile")]
     [SerializeField] Vector3 windEffect;
 
-    Vector3 bulletVelocity; // Test more to learn about mechancis regarding, tests had this serialized and related to distance travelled
+    Vector3 bulletVelocity;
+    float distanceTravelled = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,25 +26,35 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         Vector3 point1 = this.transform.position;
-
-        float distanceTravelled = 0f;
+        
         float stepSize = 1.0f / stepsPerFrame;
         for (float step = 0; step < 1; step += stepSize)
         {
             bulletVelocity += Physics.gravity * stepSize * Time.deltaTime; // Gravity
-            //bulletVelocity += windEffect * stepSize * Time.deltaTime; // Wind
+            bulletVelocity += windEffect * stepSize * Time.deltaTime; // Wind
             Vector3 point2 = point1 + bulletVelocity * stepSize * Time.deltaTime;
             Ray ray = new Ray(point1, point2 - point1);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, (point2 - point1).magnitude) || point2.y <= 0 || distanceTravelled >= maxShotDistance)
             {
-                Debug.Log($"Hit at {hit.transform.name}" + distanceTravelled + " meters");
-                // TODO Inform player that something was hit
+                if (point2.y <= 0)
+                {
+                    Debug.Log("Bullet fell below zero");
+                }
+                else if (distanceTravelled >= maxShotDistance)
+                {
+                    Debug.Log("Bullet hit max distance");
+                }
+                else
+                {
+                    Debug.Log($"Hit {hit.transform.name} at " + Vector3.Distance(FindObjectOfType<Camera>().transform.position, hit.transform.position) + " meters");
+                    // TODO Inform player that something was hit  
+                }
                 Destroy(gameObject);
                 return;
             }
 
-            distanceTravelled = (point2 - point1).magnitude;
+            distanceTravelled += Vector3.Distance(point1, point2);
             point1 = point2;
         }
 
@@ -49,21 +64,5 @@ public class Projectile : MonoBehaviour
     public RaycastHit FireRound()
     {
         return new RaycastHit();
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 point1 = this.transform.position;
-        Vector3 predictedBulletVelocity = bulletVelocity;
-        float stepSize = 0.01f;
-        for (float step = 0; step < 1; step += stepSize)
-        {
-            predictedBulletVelocity += Physics.gravity * stepSize;
-            predictedBulletVelocity += windEffect * stepSize;
-            Vector3 point2 = point1 + predictedBulletVelocity * stepSize;
-            Gizmos.DrawLine(point1, point2);
-            point1 = point2;
-        }
     }
 }
