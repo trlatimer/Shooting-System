@@ -2094,6 +2094,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1492417059 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1765338701020276103, guid: 3323a81165619254385ea8d754a5d7f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8135500177410408988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c9795a96c094f4cbde4d65546aa9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1515957602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2739,7 +2751,7 @@ PrefabInstance:
     - target: {fileID: 3447811021455495757, guid: 3323a81165619254385ea8d754a5d7f3,
         type: 3}
       propertyPath: bulletSpeed
-      value: 100
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 3447811021455495757, guid: 3323a81165619254385ea8d754a5d7f3,
         type: 3}
@@ -2747,5 +2759,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8498392427059895312, guid: 5227c5d8d1699b94db12687977519c52,
         type: 3}
+    - target: {fileID: 3447811021455495757, guid: 3323a81165619254385ea8d754a5d7f3,
+        type: 3}
+      propertyPath: fpsController
+      value: 
+      objectReference: {fileID: 1492417059}
+    - target: {fileID: 3447811021455495757, guid: 3323a81165619254385ea8d754a5d7f3,
+        type: 3}
+      propertyPath: windEffect.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8135500177694310829, guid: 3323a81165619254385ea8d754a5d7f3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.003
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3323a81165619254385ea8d754a5d7f3, type: 3}

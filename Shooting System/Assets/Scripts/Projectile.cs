@@ -6,27 +6,31 @@ public class Projectile : MonoBehaviour
 {
     [Tooltip("Determines how many iterations occur per frame, higher value improves accuracy of trajectory")]
     [SerializeField] int stepsPerFrame = 6;
-    [Tooltip("How fast the projectile will travel. Higher value increases distance it will travel before dropping noticably")]
-    [SerializeField] float bulletSpeed = 420f;
-    [Tooltip("Distance before a system destroys the object if it hasn't collided with anything")]
-    [SerializeField] float maxShotDistance = 100f;
-    [Tooltip("Vector to determine wind direction and amount of effect on projectile")]
-    [SerializeField] Vector3 windEffect;
 
+    float bulletSpeed = 420f;
+    float maxShotDistance = 100f;
+    Vector3 windEffect;
     Vector3 bulletVelocity;
     float distanceTravelled = 0f;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetInitialValues(float speed, float range, Vector3 wind)
     {
+        bulletSpeed = speed;
+        maxShotDistance = range;
+        windEffect = wind;
         bulletVelocity = this.transform.forward * bulletSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
+        ProcessParabolicRayCast();
+    }
+
+    private void ProcessParabolicRayCast()
+    {
         Vector3 point1 = this.transform.position;
-        
+
         float stepSize = 1.0f / stepsPerFrame;
         for (float step = 0; step < 1; step += stepSize)
         {
@@ -59,10 +63,5 @@ public class Projectile : MonoBehaviour
         }
 
         this.transform.position = point1;
-    }
-
-    public RaycastHit FireRound()
-    {
-        return new RaycastHit();
     }
 }

@@ -45,9 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepsPerFrame: 6
-  bulletSpeed: 400
-  maxShotDistance: 1000
-  windEffect: {x: 0, y: 0, z: 0}
 --- !u!1 &6579248892729724144
 GameObject:
   m_ObjectHideFlags: 0
