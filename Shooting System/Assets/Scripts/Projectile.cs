@@ -5,16 +5,16 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] int stepsPerFrame = 6;
-    [SerializeField] float bulletSpeed;
-    [SerializeField] float maxShotDistance;
+    [SerializeField] float bulletSpeed = 420f;
+    [SerializeField] float maxShotDistance = 100f;
     [SerializeField] Vector3 windEffect;
 
-    Vector3 bulletVelocity; // Test more to learn about mechancis regarding, tests had this serialized and related to distance travelle
+    Vector3 bulletVelocity; // Test more to learn about mechancis regarding, tests had this serialized and related to distance travelled
 
     // Start is called before the first frame update
     void Start()
     {
-        bulletVelocity = GetComponentInParent<Camera>().transform.forward * bulletSpeed;
+        bulletVelocity = this.transform.forward * bulletSpeed;
     }
 
     // Update is called once per frame
@@ -22,20 +22,24 @@ public class Projectile : MonoBehaviour
     {
         Vector3 point1 = this.transform.position;
 
+        float distanceTravelled = 0f;
         float stepSize = 1.0f / stepsPerFrame;
         for (float step = 0; step < 1; step += stepSize)
         {
             bulletVelocity += Physics.gravity * stepSize * Time.deltaTime; // Gravity
-            bulletVelocity += windEffect * stepSize * Time.deltaTime; // Wind
+            //bulletVelocity += windEffect * stepSize * Time.deltaTime; // Wind
             Vector3 point2 = point1 + bulletVelocity * stepSize * Time.deltaTime;
             Ray ray = new Ray(point1, point2 - point1);
-            if (Physics.Raycast(ray, (point2 - point1).magnitude) || point2.y <= 0)
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, (point2 - point1).magnitude) || point2.y <= 0 || distanceTravelled >= maxShotDistance)
             {
-                Debug.Log("Hit!");
+                Debug.Log($"Hit at {hit.transform.name}" + distanceTravelled + " meters");
                 // TODO Inform player that something was hit
                 Destroy(gameObject);
+                return;
             }
 
+            distanceTravelled = (point2 - point1).magnitude;
             point1 = point2;
         }
 

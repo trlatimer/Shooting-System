@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepsPerFrame: 6
+  bulletSpeed: 1000
+  maxShotDistance: 1000
+  windEffect: {x: 0, y: 0, z: 0}

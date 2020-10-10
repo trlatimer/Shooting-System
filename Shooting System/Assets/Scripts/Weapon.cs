@@ -56,7 +56,7 @@ public class Weapon : MonoBehaviour
         gunshotSource.Play();
         muzzleFlash.Play();
         // process parabolic raycast with gravity and wind drop
-        Projectile bullet = Instantiate(bullets, FPCamera.transform.position, Quaternion.identity, this.transform);
+        Instantiate(bullets, FPCamera.transform.position, Quaternion.LookRotation(FPCamera.transform.forward));
         yield return new WaitForSeconds(60 / fireRate);
         canShoot = true;
     }
