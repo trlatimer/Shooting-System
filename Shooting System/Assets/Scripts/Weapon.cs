@@ -62,6 +62,11 @@ public class Weapon : MonoBehaviour
             GetComponent<Animator>().SetBool("isAiming", false);
             ZoomOut();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private IEnumerator Shoot()

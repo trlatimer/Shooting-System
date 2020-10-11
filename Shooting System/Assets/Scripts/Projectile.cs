@@ -12,6 +12,12 @@ public class Projectile : MonoBehaviour
     Vector3 windEffect;
     Vector3 bulletVelocity;
     float distanceTravelled = 0f;
+    HitLog hitLog;
+
+    private void Start()
+    {
+        hitLog = FindObjectOfType<HitLog>();
+    }
 
     public void SetInitialValues(float speed, float range, Vector3 wind)
     {
@@ -43,16 +49,15 @@ public class Projectile : MonoBehaviour
             {
                 if (point2.y <= 0)
                 {
-                    Debug.Log("Bullet fell below zero");
+                    hitLog.AppendMessage("Bullet fell below zero");
                 }
                 else if (distanceTravelled >= maxShotDistance)
                 {
-                    Debug.Log("Bullet hit max distance");
+                    hitLog.AppendMessage("Bullet hit max distance");
                 }
                 else
                 {
-                    Debug.Log($"Hit {hit.transform.name} at " + Vector3.Distance(FindObjectOfType<Camera>().transform.position, hit.transform.position) + " meters");
-                    // TODO Inform player that something was hit  
+                    hitLog.AppendMessage($"Hit {hit.transform.name} at " + Vector3.Distance(FindObjectOfType<Camera>().transform.position, hit.transform.position) + " meters");
                 }
                 Destroy(gameObject);
                 return;
