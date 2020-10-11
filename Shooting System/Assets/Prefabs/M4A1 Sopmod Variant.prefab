@@ -159,8 +159,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FPCamera: {fileID: 0}
+  fpsController: {fileID: 0}
   fireRate: 140
+  bulletSpeed: 300
+  maxShotDistance: 1000
+  windEffect: {x: 0, y: 0, z: 10}
+  zoomIn: 30
+  zoomOut: 60
+  zoomOutSensitivity: 2
+  zoomInSensitivity: 0.5
   muzzleFlash: {fileID: 2694616400042462073}
+  bullets: {fileID: 8498392427059895312, guid: 5227c5d8d1699b94db12687977519c52, type: 3}
 --- !u!1001 &6862940018400224631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -170,7 +179,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_Name
-      value: M4A1 Sopmod
+      value: M4A1 Sopmod Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalPosition.x
