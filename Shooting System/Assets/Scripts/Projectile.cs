@@ -13,14 +13,16 @@ public class Projectile : MonoBehaviour
     Vector3 bulletVelocity;
     float distanceTravelled = 0f;
     HitLog hitLog;
+    Camera mainCamera;
 
     private void Start()
     {
         hitLog = FindObjectOfType<HitLog>();
     }
 
-    public void SetInitialValues(float speed, float range, Vector3 wind)
+    public void SetInitialValues(Camera camera, float speed, float range, Vector3 wind)
     {
+        mainCamera = camera;
         bulletSpeed = speed;
         maxShotDistance = range;
         windEffect = wind;
@@ -62,7 +64,6 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
-
             distanceTravelled += Vector3.Distance(point1, point2);
             point1 = point2;
         }
