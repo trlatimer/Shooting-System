@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     [Tooltip("Determines how many iterations occur per frame, higher value improves accuracy of trajectory")]
     [SerializeField] int stepsPerFrame = 6;
+    [SerializeField] float drag = 0.95f;
 
     float bulletSpeed = 420f;
     float maxShotDistance = 100f;

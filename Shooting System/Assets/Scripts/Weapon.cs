@@ -133,9 +133,9 @@ public class Weapon : MonoBehaviour
         {
             for (float step = 0; step < 1; step += stepSize)
             {
-                bulletVelocity += Physics.gravity * stepSize; // Gravity
-                bulletVelocity += windEffect * stepSize; // Wind
-                Vector3 point2 = point1 + bulletVelocity * stepSize;
+                bulletVelocity += Physics.gravity * stepSize * Time.deltaTime; // Gravity
+                bulletVelocity += windEffect * stepSize * Time.deltaTime; // Wind
+                Vector3 point2 = point1 + bulletVelocity * stepSize * Time.deltaTime;
                 Gizmos.DrawLine(point1, point2);
 
                 //if (Physics.Raycast(ray, out hit, (point2 - point1).magnitude) || point2.y <= 0 || distanceTravelled >= maxShotDistance)
