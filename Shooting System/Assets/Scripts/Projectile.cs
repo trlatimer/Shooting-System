@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
     float maxShotDistance = 100f;
     Vector3 windEffect;
     Vector3 bulletVelocity;
+    float gravityMultiplier = 0.5f;
     float distanceTravelled = 0f;
     HitLog hitLog;
     Camera mainCamera;
@@ -21,13 +22,14 @@ public class Projectile : MonoBehaviour
         hitLog = FindObjectOfType<HitLog>();
     }
 
-    public void SetInitialValues(Camera camera, float speed, float range, Vector3 wind)
+    public void SetInitialValues(Camera camera, float speed, float range, Vector3 wind, float gravityMult)
     {
         mainCamera = camera;
         bulletSpeed = speed;
         maxShotDistance = range;
         windEffect = wind;
         bulletVelocity = this.transform.forward * bulletSpeed;
+        gravityMultiplier = gravityMult;
     }
 
     // Update is called once per frame
@@ -43,7 +45,7 @@ public class Projectile : MonoBehaviour
         float stepSize = 1.0f / stepsPerFrame;
         for (float step = 0; step < 1; step += stepSize)
         {
-            bulletVelocity += Physics.gravity * stepSize * Time.deltaTime; // Gravity
+            bulletVelocity += (Physics.gravity * gravityMultiplier)* stepSize * Time.deltaTime; // Gravity
             bulletVelocity += windEffect * stepSize * Time.deltaTime; // Wind
             Vector3 point2 = point1 + bulletVelocity * stepSize * Time.deltaTime;
             Ray ray = new Ray(point1, point2 - point1);
