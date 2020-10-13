@@ -49,6 +49,7 @@ public class Projectile : MonoBehaviour
             Vector3 point2 = point1 + bulletVelocity * stepSize * Time.deltaTime;
             Ray ray = new Ray(point1, point2 - point1);
             RaycastHit hit;
+            // The conditionals for y <= 0 and maxShotDistance could both be removed - Added to prevent a projectile from falling for infinity
             if (Physics.Raycast(ray, out hit, (point2 - point1).magnitude) || point2.y <= 0 || distanceTravelled >= maxShotDistance)
             {
                 if (point2.y <= 0)
