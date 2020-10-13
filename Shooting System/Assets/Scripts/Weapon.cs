@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     [Tooltip("Distance before a system destroys the object if it hasn't collided with anything")]
     [SerializeField] float maxShotDistance = 100f;
     [Tooltip("Vector to determine wind direction and amount of effect on projectile")]
-    [SerializeField] Vector3 windEffect;
+    [SerializeField] Vector3 windEffect = new Vector3();
     [SerializeField] float gravityMultiplier = 0.5f;
     [SerializeField] Color predictionColor = Color.yellow;
     [SerializeField] float zoomIn = 30f;
@@ -48,7 +48,7 @@ public class Weapon : MonoBehaviour
 
     private void ProcessPlayerInput()
     {
-        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && canShoot)
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
             StartCoroutine(Shoot());
         }
@@ -113,7 +113,7 @@ public class Weapon : MonoBehaviour
             // Iterate to simulate the amount of iterations that would occur per frame
             for (float step = 0; step < 1; step += stepSize)
             {
-                predictedBulletVelocity += (Physics.gravity * gravityMultiplier) * stepSize * tempDeltaTime; // Gravity and drag
+                predictedBulletVelocity += (Physics.gravity * gravityMultiplier) * stepSize * tempDeltaTime; // Gravity
                 predictedBulletVelocity += windEffect * stepSize * tempDeltaTime; // Wind
                 point2 = point1 + predictedBulletVelocity * stepSize * tempDeltaTime;
                 Gizmos.DrawLine(point1, point2);
